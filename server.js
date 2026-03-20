@@ -20,7 +20,8 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://marvelous-sunflower-2b515f.netlify.app"
+    "https://marvelous-sunflower-2b515f.netlify.app",
+    "https://startling-beijinho-d65eba.netlify.app"
   ],
   credentials: true
 }));
