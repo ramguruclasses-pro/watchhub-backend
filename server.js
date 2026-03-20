@@ -20,7 +20,6 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://watchhub-frontend.netlify.app",
     "https://marvelous-sunflower-2b515f.netlify.app"
   ],
   credentials: true
