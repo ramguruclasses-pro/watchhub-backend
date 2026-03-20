@@ -17,12 +17,11 @@ const __dirname  = path.dirname(__filename);
 
 const app = express();
 
+// ✅ Allow ALL origins — fixes CORS forever
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://marvelous-sunflower-2b515f.netlify.app",
-    "https://startling-beijinho-d65eba.netlify.app"
-  ],
+  origin: function(origin, callback) {
+    callback(null, true);
+  },
   credentials: true
 }));
 
