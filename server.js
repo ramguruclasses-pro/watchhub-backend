@@ -9,13 +9,17 @@ import productRoutes    from "./routes/productRoutes.js";
 import orderRoutes      from "./routes/orderRoutes.js";
 import adminRoutes      from "./routes/adminRoutes.js";
 import uploadRoutes     from "./routes/uploadRoutes.js";
-
+import { startKeepAlive } from "./keepAlive.js"
 connectDB();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
 
 const app = express();
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+  startKeepAlive() // ✅ add karo
+})
 
 // ✅ Allow ALL origins — fixes CORS forever
 app.use(cors({
