@@ -2,7 +2,7 @@ import Order from "../models/orderModel.js";
 import Product from "../models/productModel.js";
 import User from "../models/userModel.js";
 
-// GET /api/admin/summary — dashboard data
+// GET /api/admin/summary
 export const getDashboardSummary = async (req, res) => {
   try {
     const [totalUsers, totalOrders, totalProducts, revenueData, recentOrders] = await Promise.all([
@@ -32,7 +32,7 @@ export const getDashboardSummary = async (req, res) => {
   }
 };
 
-// GET /api/admin/users — sabhi users
+// GET /api/admin/users
 export const getAllUsers = async (req, res) => {
   try {
     const users = await User.find().select("-password");
@@ -42,12 +42,22 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
-// DELETE /api/admin/users/:id — user delete
+// ✅ DELETE /api/admin/users/:id — user + uske saare orders delete
 export const deleteUser = async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id);
+    const user = await User.findById(req.params.id);
     if (!user) return res.status(404).json({ message: "User not found" });
-    res.json({ message: "User deleted" });
+
+    // ✅ Pehle user ke saare orders delete karo
+    const deletedOrders = await Order.deleteMany({ user: req.params.id });
+
+    // ✅ Phir user delete karo
+    await User.findByIdAndDelete(req.params.id);
+
+    res.json({
+      message: "User aur uske saare orders delete ho gaye ✅",
+      deletedOrdersCount: deletedOrders.deletedCount,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
