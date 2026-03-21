@@ -1,4 +1,4 @@
-import "dotenv/config"; // ✅ FIX: dotenv sabse pehle load karo
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import path from "path";
@@ -21,10 +21,11 @@ connectDB();
 
 const app = express();
 
-// ✅ CORS fix
+// ✅ Allow ALL origins — CORS problem forever fixed
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "https://watchhub-frontend.vercel.app",
-  credentials: true
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
 app.use(express.json());
