@@ -1,5 +1,4 @@
-// ✅ FIX: Railway backend URL use karo
-const BACKEND_URL = "https://watchhub-backend-production.up.railway.app";
+const BACKEND_URL = "https://watchhub-backend-101.onrender.com";
 
 export const startKeepAlive = () => {
   setInterval(async () => {
