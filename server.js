@@ -10,6 +10,7 @@ import productRoutes      from "./routes/productRoutes.js";
 import orderRoutes        from "./routes/orderRoutes.js";
 import adminRoutes        from "./routes/adminRoutes.js";
 import uploadRoutes       from "./routes/uploadRoutes.js";
+import contactRoutes      from "./routes/contactRoutes.js";
 import { startKeepAlive } from "./keepAlive.js";
 
 const PORT = process.env.PORT || 5000;
@@ -21,7 +22,6 @@ connectDB();
 
 const app = express();
 
-// ✅ Allow ALL origins — CORS problem forever fixed
 app.use(cors({
   origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -36,6 +36,7 @@ app.use("/api/products",   productRoutes);
 app.use("/api/orders",     orderRoutes);
 app.use("/api/admin",      adminRoutes);
 app.use("/api/upload",     uploadRoutes);
+app.use("/api/contact",    contactRoutes);
 
 app.get("/", (req, res) => res.json({ message: "WatchHub API running ✅" }));
 
